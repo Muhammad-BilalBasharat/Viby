@@ -36,7 +36,8 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messagesRoutes);
 
-server.listen(PORT, () => {
+server.listen(PORT,"0.0.0.0", () => {
   console.log(`Server running on port http://localhost:${PORT}`);
   connectDB();
 });
+
