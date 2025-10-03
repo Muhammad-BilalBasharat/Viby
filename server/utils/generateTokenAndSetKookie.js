@@ -13,7 +13,7 @@ const generateTokenAndSetKookie = (res, userId) => {
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== "development", // Use secure cookies in production
-    sameSite: "Strict", // Prevent CSRF attacks
+    sameSite: "none", // Prevent CSRF attacks
     maxAge: 360000000,
   });
 };
