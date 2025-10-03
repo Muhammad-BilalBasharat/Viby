@@ -1,11 +1,16 @@
-import nodemailer from "nodemailer";
-import { EMAIL_USER,EMAIL_APP_PASSWORD } from "../config/envConfig.js";
+import { Resend } from "resend";
+import { RESEND_API_KEY } from "../config/envConfig";
 
+const resend = new Resend(RESEND_API_KEY);
 
-export const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: EMAIL_USER,         // e.g., yourgmail@gmail.com
-    pass: EMAIL_APP_PASSWORD, // Gmail App Password (16-char)
-  },
-});
+export const sendMail = async ({ to, subject, html }) => {
+  resend.emails
+    .send({
+      from: "Viby Chat <noreply@resend.dev>",
+      to,
+      subject,
+      html,
+    })
+    .then((res) => console.log("✅ Email sent:", res?.id))
+    .catch((err) => console.error("❌ Error sending email:", err));
+};

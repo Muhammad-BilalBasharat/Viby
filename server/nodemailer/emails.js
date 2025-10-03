@@ -1,38 +1,30 @@
-// emails.js
-import { transporter } from "./mailer.config.js";
+import { sendMail } from "./mailer.config.js";
 import {
   VERIFICATION_EMAIL_TEMPLATE,
-    WELCOME_EMAIL_TEMPLATE,
+  WELCOME_EMAIL_TEMPLATE,
 } from "./emailTemplates.js";
 
-const fromEmail = `"Viby Chat" <${process.env.EMAIL_USER}>`;
+const FROM_NAME = "Viby Chat"; 
+const FROM_EMAIL = "noreply@resend.dev"; 
 
-export const sendVerificationEmail = async (email, otp) => {
+export const sendVerificationEmail = (email, otp) => {
   const html = VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", otp);
-  try {
-    const response = await transporter.sendMail({
-      from: fromEmail,
-      to: email,
-      subject: "Verify Your Email",
-      html,
-    });
-    console.log("Verification email sent:", response.messageId);
-  } catch (error) {
-    console.error("Error sending verification email:", error);
-  }
+
+  sendMail({
+    from: `${FROM_NAME} <${FROM_EMAIL}>`,
+    to: email,
+    subject: "Verify Your Email",
+    html,
+  });
 };
 
-export const welcomeEmail = async (email, name) => {
+export const welcomeEmail = (email, name) => {
   const html = WELCOME_EMAIL_TEMPLATE.replace("{fullName}", name);
-  try {
-    const response = await transporter.sendMail({
-      from: fromEmail,
-      to: email,
-      subject: "Welcome to Our Service",
-      html,
-    });
-    console.log("Welcome email sent:", response.messageId);
-  } catch (error) {
-    console.error("Error sending welcome email:", error);
-  }
+
+  sendMail({
+    from: `${FROM_NAME} <${FROM_EMAIL}>`,
+    to: email,
+    subject: "Welcome to Viby Chat 🎉",
+    html,
+  });
 };
