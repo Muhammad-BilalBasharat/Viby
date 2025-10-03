@@ -3,8 +3,15 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const API_URL =
-  import.meta.env.MODE === "production" ? "https://viby-chat-epdt.onrender.com/api" : "https://viby-chat-epdt.onrender.com/api";
+const API_BASE =
+  import.meta.env.MODE === "production"
+    ? "https://viby-chat-epdt.onrender.com/api"
+    : "http://localhost:5000/api";
+
+const SOCKET_BASE =
+  import.meta.env.MODE === "production"
+    ? "https://viby-chat-epdt.onrender.com"
+    : "http://localhost:5000";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
@@ -23,7 +30,7 @@ export const useAuthStore = create((set, get) => ({
       set({ authUser: response.data, isCheckingAuth: false });
       get().connectSocket();
       return response.data;
-    } catch (error) {
+    } catch {
       set({ authUser: null, isCheckingAuth: false });
       return null;
     }
@@ -59,7 +66,6 @@ export const useAuthStore = create((set, get) => ({
         otp,
       });
 
-      // ✅ only set authUser if user object exists
       if (response.data?.user) {
         set({ authUser: response.data.user });
       }
@@ -70,7 +76,6 @@ export const useAuthStore = create((set, get) => ({
       const msg =
         error.response?.data?.message || "OTP verification failed. Try again.";
       toast.error(msg);
-
       return { success: false, message: msg };
     }
   },
@@ -87,7 +92,7 @@ export const useAuthStore = create((set, get) => ({
 
       set({ authUser: response.data.user, isLoggingIn: false });
       toast.success("Login successful!");
-      get().connectSocket;
+      get().connectSocket(); // fixed
       return { success: true, data: response.data.user };
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
@@ -140,24 +145,29 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
+  // ✅ socket connect
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
 
-    const socket = io(API_URL, {
+    const socket = io(SOCKET_BASE, {
       withCredentials: true,
       transports: ["websocket"],
     });
 
     set({ socket });
 
-    socket.on("connect", () => {});
+    socket.on("connect", () => {
+      console.log("✅ Socket connected:", socket.id);
+    });
 
     socket.on("getOnlineUsers", (userIds) => {
       set({ onlineUsers: userIds });
     });
 
-    socket.on("disconnect", () => {});
+    socket.on("disconnect", () => {
+      console.log("❌ Socket disconnected");
+    });
   },
 
   disconnectSocket: () => {

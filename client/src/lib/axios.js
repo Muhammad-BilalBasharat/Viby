@@ -1,7 +1,11 @@
 import axios from "axios";
 
-export const axiosInstance = axios.create({
-    baseURL: import.meta.env.API_URL || "https://viby-chat-epdt.onrender.com/api",
-    withCredentials: true,
-});
+const API_BASE =
+  import.meta.env.MODE === "production"
+    ? "https://viby-chat-epdt.onrender.com/api" // Render backend
+    : "http://localhost:5000/api";              // Local dev
 
+export const axiosInstance = axios.create({
+  baseURL: API_BASE,
+  withCredentials: true, // important for cookies / auth
+});
