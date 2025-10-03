@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  origin: "https://viby-1-t7xs.onrender.com",
+  origin: "https://viby-3.onrender.com",
   credentials: true,
 }));
 
