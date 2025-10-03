@@ -1,14 +1,13 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
-import { CLIENT_URL } from "../config/envConfig.js";
 import { socketAuthMiddleware } from "../middlewares/socketAuth.js";
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: CLIENT_URL || "http://localhost:5173",
+        origin:"https://viby-1-t7xs.onrender.com/",
         credentials: true,
         methods: ["GET", "POST"],
     },
