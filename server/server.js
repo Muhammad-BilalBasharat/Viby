@@ -30,7 +30,6 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true,
 }));
-app.options("*", cors()); // handle preflight
 
 
 const PORT = process.env.PORT || 5000;
