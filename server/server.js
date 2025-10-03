@@ -2,15 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import helmet from "helmet";
 import connectDB from "./config/connectDB.js";
 import userRoutes from "./routes/users.js";
 import messagesRoutes from "./routes/messages.js";
-import { CLIENT_URL } from "./config/envConfig.js";
 import { server, app } from "./utils/socket.js";
-import path from "path";
 dotenv.config();
-const __dirname = path.resolve();
 
 
 
@@ -27,10 +23,9 @@ app.use(express.json({limit: "50mb"}));
 app.use(cookieParser());
 app.use(cors(
   {
-    origin: CLIENT_URL || "https://viby-1-t7xs.onrender.com",
+    origin:"https://viby-1-t7xs.onrender.com",
     credentials: true,
   }));
-app.use(helmet());
 
 const PORT = process.env.PORT || 5000;
 
