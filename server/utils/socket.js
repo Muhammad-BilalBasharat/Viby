@@ -8,7 +8,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://viby-1-t7xs.onrender.com", // no trailing slash
+    origin: "https://viby-1-t7xs.onrender.com/", // no trailing slash
     credentials: true,
     methods: ["GET", "POST"],
   },

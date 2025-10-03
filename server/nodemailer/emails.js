@@ -5,7 +5,7 @@ import {
     WELCOME_EMAIL_TEMPLATE,
 } from "./emailTemplates.js";
 
-const fromEmail = `"Gup Shup" <${process.env.EMAIL_USER}>`;
+const fromEmail = `"Viby Chat" <${process.env.EMAIL_USER}>`;
 
 export const sendVerificationEmail = async (email, otp) => {
   const html = VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", otp);
