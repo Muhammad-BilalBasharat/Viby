@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
 const API_URL =
-  import.meta.env.MODE === "development" ? "https://viby-hgor.onrender.com/" : "/";
+  import.meta.env.MODE === "development" ? "https://viby-hgor.onrender.com/api" : "/api";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
