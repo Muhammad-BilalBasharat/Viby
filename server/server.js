@@ -27,7 +27,7 @@ app.use(express.json({limit: "50mb"}));
 app.use(cookieParser());
 app.use(cors(
   {
-    origin: CLIENT_URL || "https://viby-1-t7xs.onrender.com/",
+    origin: CLIENT_URL || "https://viby-1-t7xs.onrender.com",
     credentials: true,
   }));
 app.use(helmet());
