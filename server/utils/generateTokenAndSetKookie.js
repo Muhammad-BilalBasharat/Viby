@@ -1,0 +1,20 @@
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config/envConfig.js";
+
+const generateTokenAndSetKookie = (res, userId) => {
+  const token = jwt.sign(
+    { id: userId },
+    JWT_SECRET,
+    {
+      expiresIn: "15day",
+    }
+  );
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development", // Use secure cookies in production
+    sameSite: "lax", // Prevent CSRF attacks
+    maxAge: 360000000,
+  });
+};
+export default generateTokenAndSetKookie ;
