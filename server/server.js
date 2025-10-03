@@ -24,7 +24,13 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  origin: ["https://viby-1-t7xs.onrender.com/", "http://localhost:5173"],
+  origin: "https://viby-1-t7xs.onrender.com",
+  credentials: true,
+}));
+
+// handle preflight
+app.options("*", cors({
+  origin: "https://viby-1-t7xs.onrender.com",
   credentials: true,
 }));
 
