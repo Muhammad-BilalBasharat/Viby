@@ -5,12 +5,12 @@ import { io } from "socket.io-client";
 
 const API_BASE =
   import.meta.env.MODE === "production"
-    ? "https://viby-chat-epdt.onrender.com/api"
+    ? "https://viby-2.onrender.com/api"
     : "http://localhost:5000/api";
 
 const SOCKET_BASE =
   import.meta.env.MODE === "production"
-    ? "https://viby-chat-epdt.onrender.com"
+    ? "https://viby-2.onrender.com"
     : "http://localhost:5000";
 
 export const useAuthStore = create((set, get) => ({
