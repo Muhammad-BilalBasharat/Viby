@@ -28,11 +28,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// handle preflight
-app.options("*", cors({
-  origin: "https://viby-1-t7xs.onrender.com",
-  credentials: true,
-}));
+
 
 
 
