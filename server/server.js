@@ -14,6 +14,12 @@ const __dirname = path.resolve();
 
 
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+
+
 
 
 // const app = express();
