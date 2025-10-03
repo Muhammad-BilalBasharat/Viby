@@ -6,7 +6,7 @@ const resend = new Resend(RESEND_API_KEY);
 export const sendMail = async ({ to, subject, html }) => {
   resend.emails
     .send({
-      from: "Viby Chat <noreply@resend.dev>",
+      from: "Viby Chat <onboarding@resend.dev>",
       to,
       subject,
       html,
